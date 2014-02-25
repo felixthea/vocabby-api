@@ -1,0 +1,7 @@
+<form action="<%= words_url %>" method="POST">
+	<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+	<label for="word_name">Word:</label>
+	<input type="text" id="word_name" name="word[name]">
+	<br>
+	<input type="submit" value="submit">
+</form>

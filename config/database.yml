@@ -1,0 +1,9 @@
+development:
+  adapter: postgresql
+  database: db/vocabby_development
+  host: localhost
+
+test:
+  adapter: postgresql
+  database: db/vocabby
+  host: localhost
