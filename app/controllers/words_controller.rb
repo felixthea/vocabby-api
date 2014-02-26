@@ -17,6 +17,11 @@ class WordsController < ApplicationController
 		render :show
 	end
 
+	def index
+		@words = Word.find_all_by_user_id(current_user.id)
+		render json: @words
+	end
+
 	private
 
 	def word_params
