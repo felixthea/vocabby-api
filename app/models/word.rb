@@ -3,7 +3,8 @@ require 'addressable/uri'
 require 'json'
 
 class Word < ActiveRecord::Base
-	def get_syns
+	def create_syns
+		syn_arr = []
 		url = Addressable::URI.new(
 			scheme: "http",
 			host: "words.bighugelabs.com",
@@ -11,6 +12,19 @@ class Word < ActiveRecord::Base
 		).to_s
 
 		response = RestClient.get(url)
-		JSON.parse(response)
+		resp_json = JSON.parse(response)
+		resp_json.each do |k,v|
+			syn_arr += resp_json[k]["syn"]
+		end
+
+		save_syns(syn_arr)
 	end
+
+	def save_syns(syn_arr)
+		syn_arr.each do |syn|
+			Synonym.create(name: syn, word_id: self.id)
+		end
+	end
+
+	has_many :synonyms, dependent: :destroy
 end

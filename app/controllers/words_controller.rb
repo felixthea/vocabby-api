@@ -6,6 +6,7 @@ class WordsController < ApplicationController
 	def create
 		@word = Word.new(word_params.merge({user_id: current_user.id}))
 		if @word.save
+			@word.create_syns
 			redirect_to word_url(@word.id)
 		else
 			render :new
