@@ -19,8 +19,15 @@ class WordsController < ApplicationController
 	end
 
 	def index
-		@words = Word.find_all_by_user_id(current_user.id)
-		render json: @words
+		words = Word.find_all_by_user_id(current_user.id)
+		@words_hash = {}	
+		words.each do |word|
+			word.synonyms.each do |syn|
+				@words_hash[syn.name] = word.name
+			end
+		end
+		
+		render json: @words_hash
 	end
 
 	private

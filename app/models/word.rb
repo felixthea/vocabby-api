@@ -14,7 +14,7 @@ class Word < ActiveRecord::Base
 		response = RestClient.get(url)
 		resp_json = JSON.parse(response)
 		resp_json.each do |k,v|
-			syn_arr += resp_json[k]["syn"]
+			syn_arr += resp_json[k]["syn"] if resp_json[k]["syn"]
 		end
 
 		save_syns(syn_arr)
