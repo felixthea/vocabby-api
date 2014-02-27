@@ -17,4 +17,8 @@ class SessionsController < ApplicationController
 		log_user_out!
 		render :new
 	end
+
+	def logged_in
+		render json: logged_in?
+	end
 end
