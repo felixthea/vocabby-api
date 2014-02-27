@@ -10,6 +10,7 @@ class SessionsController < ApplicationController
 			render :new
 		else
 			log_user_in!(user)
+			render json: "logged in"
 		end
 	end
 

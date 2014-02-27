@@ -5,7 +5,6 @@ module SessionsHelper
 
 	def log_user_in!(user)
 		session[:session_token] = user.reset_session_token!
-		redirect_to user_url(user.id)
 	end
 
 	def log_user_out!
