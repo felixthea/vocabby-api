@@ -8,11 +8,6 @@ Bundler.require(:default, Rails.env)
 
 module VocabbyRailsAPI
   class Application < Rails::Application
-  	config.middleware.use Rack::Cors do
-      allow do
-        origins '*'
-        resource '*', :headers => :any, :methods => [:get, :post, :options]
-      end
-    end
+  	config.action_dispatch.default_headers = {'X-UA-Compatible' => 'IE=edge', 'Access-Control-Allow-Origin' => '*'}
   end
 end
