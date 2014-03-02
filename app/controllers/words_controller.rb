@@ -4,12 +4,17 @@ class WordsController < ApplicationController
 	end
 
 	def create
-		@word = Word.new(word_params.merge({user_id: current_user.id}))
+		new_word_params = {}
+		new_word_params[:name] = word_params[:name]
+		user = User.find_by_session_token(word_params[:session_token])
+		new_word_params[:user_id] = user.id
+
+		@word = Word.new(new_word_params)
 		if @word.save
 			@word.create_syns
-			redirect_to word_url(@word.id)
+			render json: @word
 		else
-			render :new
+			render json: @word.errors.full_messages, status: 422
 		end
 	end
 
@@ -33,6 +38,6 @@ class WordsController < ApplicationController
 	private
 
 	def word_params
-		params.require(:word).permit(:name)
+		params.require(:word).permit(:name, :session_token)
 	end
 end

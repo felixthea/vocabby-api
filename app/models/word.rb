@@ -27,4 +27,5 @@ class Word < ActiveRecord::Base
 	end
 
 	has_many :synonyms, dependent: :destroy
+	validates_uniqueness_of :name, scope: :user_id
 end
