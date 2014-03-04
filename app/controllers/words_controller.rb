@@ -24,7 +24,8 @@ class WordsController < ApplicationController
 	end
 
 	def index
-		words = Word.find_all_by_user_id(current_user.id)
+		user = User.find_by_session_token(params[:session_token])
+		words = Word.find_all_by_user_id(user.id)
 		@words_hash = {}	
 		words.each do |word|
 			word.synonyms.each do |syn|
